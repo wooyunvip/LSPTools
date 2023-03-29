@@ -1,0 +1,21 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install packages
+      run: sudo apt-get install libcairo2-dev libjpeg-dev libgif-dev
+    - name: Build
+      run: ./build.sh
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: lsp-tools
+        path: dist/
